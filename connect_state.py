@@ -135,7 +135,7 @@ if __name__ == "__main__":
     print(state.board)
     print("")
 
-    moves = [3, 3, 2, 2, 4, 4, 1]  # Jugadas alternando a los jugadores
+    moves = [2, 2, 3, 3, 4, 4, 1]  # Jugadas alternando a los jugadores
     for move in moves:
         if state.is_applicable(move):
             state = state.transition(move)
