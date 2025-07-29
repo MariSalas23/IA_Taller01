@@ -30,14 +30,14 @@ class ConnectState(EnvironmentState):
         return is_winner or full_board
     
     def is_applicable(self, event: Any) -> bool:
-        col = int(event)
+        if isinstance(event, int): # Verifica que el evento sea un entero
+            col = event
+            if 0 <= col < self.COLS: # Verifica si la columna está dentro del rango permitido
+                space = self.board[0, col] == 0 # Si space = 0, hay espacio para colocar una ficha
+                return space
 
-        if not (0 <= col < self.COLS): # Verifica si la columna está dentro del rango permitido
-            return False
-        space = self.board[0, col] == 0  # Si space = 0, hay espacio para colocar una ficha
-
-        return space
-
+        return False
+        
     def transition(self, col: int) -> "EnvironmentState":
         if not self.is_applicable(col): # Verifica si la jugada es valida
             raise ValueError("Invalid move")
