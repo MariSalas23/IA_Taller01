@@ -28,13 +28,15 @@ class ConnectState(EnvironmentState):
         full_board = np.all(self.board != 0) # Verifica si el tablero está vacío. True si todas las celdas son distintas de 0
 
         return is_winner or full_board
-
+    
     def is_applicable(self, event: Any) -> bool:
-        col = int(event) 
-        in_range = 0 <= col < self.COLS # Verifica si la columna está dentro del rango permitido
+        col = int(event)
+
+        if not (0 <= col < self.COLS): # Verifica si la columna está dentro del rango permitido
+            return False
         space = self.board[0, col] == 0  # Si space = 0, hay espacio para colocar una ficha
 
-        return in_range and space
+        return space
 
     def transition(self, col: int) -> "EnvironmentState":
         if not self.is_applicable(col): # Verifica si la jugada es valida
